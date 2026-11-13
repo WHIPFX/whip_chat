@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>whip_chat</title>
+<!-- tokens first: chat.css reads its colours and font from them. -->
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+
+<!-- The message log only; the player types into whip_core's capsule. `when-active` is the
+     default hide state; the client applies the player's saved choice on load. -->
+<div id="chat" class="when-active">
+
+    <div id="chat-messages"></div>
+
+</div>
+
+<script src="js/chat.js"></script>
+</body>
+</html>

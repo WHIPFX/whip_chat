@@ -1,0 +1,211 @@
+/* ========================================
+   whip_chat · Precision Dark
+
+   Each message is a pill in the player capsule's material (tokens from whip_core's ui.css).
+   Opacity is per message, never on the list: child opacity multiplies with the parent's, so a
+   faded list would cap every row.
+
+     · a line that just arrived    1.00, then released by its timer
+     · the settled backlog         0.35
+     · anything, while typing      1.00
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: transparent;
+    font-family: var(--ui-font);
+    /* CEF renders a focus ring on the body when NUI focus is taken. */
+    outline: none;
+}
+
+/* ========================================
+   TYPE SCALE
+   ======================================== */
+
+:root {
+    --chat-msg-size: 19.5px;
+
+    /* Monospace looks larger than the body face at the same size, so mono lines sit a little below it. */
+    --chat-mono-size: calc(var(--chat-msg-size) * 0.9);
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+
+#chat {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    /* vw inside a zoomed box is multiplied by the zoom; dividing keeps it a third of the screen. */
+    width: calc(34vw / var(--ui-scale));
+    min-width: 380px;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 900;          /* under whip_core notifications (950), over the world */
+    pointer-events: none;
+    zoom: var(--ui-scale);
+    transition: opacity 0.25s var(--ui-ease);
+}
+
+/* toggleChat state 2 — always hidden. Also used while the screen is faded or paused. */
+#chat.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* toggleChat state 0 — only show when something is happening. */
+#chat.when-active:not(.recent):not(.focused) #chat-messages {
+    opacity: 0;
+}
+
+/* ========================================
+   MESSAGE LIST
+   ======================================== */
+
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    /* Divided by the scale, as #chat's width is. */
+    max-height: calc(29vh / var(--ui-scale) + 40px);   /* + the shadow room below: the same lines show */
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Room for each message's shadow, which the scroll box would otherwise clip; the negative
+       margin gives the space back so the messages don't move. */
+    padding: 16px 20px 24px;
+    margin: -16px -20px -24px;
+
+    /* Only the whole-list hide ("when active" mode) fades here; rows carry their own opacity. */
+    transition: opacity 0.25s var(--ui-ease);
+}
+
+/* No scrollbar: chat has keyboard focus but no cursor. PageUp/PageDown scroll it. */
+#chat-messages {
+    scrollbar-width: none;      /* Firefox-family */
+    -ms-overflow-style: none;
+}
+
+#chat-messages::-webkit-scrollbar {
+    display: none;              /* CEF */
+}
+
+/* ---- A single message ----
+   The player capsule's surface (.sh-capsule in whip_core/html/css/status-hud.css), from the tokens.
+   The 38px radius clamps to half the box, so one line is a pill and a wrapped message keeps
+   rounded ends. */
+.chat-msg {
+    position: relative;        /* so the top-edge highlight below has something to sit on */
+    max-width: 100%;
+    background: var(--ui-surface);
+    border: 1px solid var(--ui-border);
+    border-radius: 38px;
+    box-shadow: var(--ui-shadow);
+
+    padding: 10px 20px;
+
+    color: rgba(255, 255, 255, 0.85);
+    font-family: var(--ui-font);
+    font-size: var(--chat-msg-size);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1.45;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+
+    /* Resting state. */
+    opacity: 0.35;
+    transition: opacity 0.45s var(--ui-ease);
+
+    /* Transform only: animating opacity with fill-mode `both` would pin it and break the fade-back. */
+    animation: chat-msg-in 0.28s var(--ui-ease) both;
+}
+
+/* The capsule's top-edge highlight. Not on .is-command, which has an accent border of its own. */
+.chat-msg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 16%;
+    right: 16%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 1px;
+    pointer-events: none;
+}
+
+.chat-msg.is-command::before {
+    display: none;
+}
+
+@keyframes chat-msg-in {
+    from { transform: translateY(8px); }
+    to   { transform: translateY(0); }
+}
+
+/* Just arrived: full opacity until chat.js's timer removes the class. */
+.chat-msg.fresh {
+    opacity: 1;
+}
+
+/* Typing: the whole backlog comes up. The ID outranks .chat-msg.fresh. */
+#chat.focused .chat-msg {
+    opacity: 1;
+}
+
+/* `multiline: false` messages clip instead of wrapping, matching stock behaviour. */
+.chat-msg.single-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-msg b {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* The speaker. Its own class, so bold text in a custom template doesn't look like a speaker. */
+.chat-author {
+    font-weight: 700;
+    color: var(--ui-accent);
+}
+
+/* Console / server print output: dimmer and lighter, same capsule and background. */
+.chat-msg.is-print {
+    font-family: var(--ui-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--chat-mono-size);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ui-text-mid);
+}
+
+/* A command the player typed, echoed back: an accent hairline all the way round. */
+.chat-msg.is-command {
+    font-family: var(--ui-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--chat-mono-size);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ui-accent);
+    background: var(--ui-accent-subtle);
+    border-color: var(--ui-accent-medium);
+}

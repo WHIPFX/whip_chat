@@ -1,0 +1,63 @@
+/* ========================================
+   DESIGN TOKENS — COPY
+
+   Source: whip_core/html/css/base.css (the `:root` block). Copied rather than imported: a
+   stylesheet loaded across the cfx-nui boundary can fail silently on CORS.
+
+   If you change a token in whip_core, change it here too.
+   ======================================== */
+
+/* Barlow, from this resource's own html/fonts/ (copied from whip_core's, SIL OFL 1.1: OFL-Barlow.txt), so the chat
+   never asks the internet for a font. The same faces as whip_core/html/css/fonts.css. */
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/barlow-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/barlow-400-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/barlow-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: block; src: url('../fonts/barlow-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: block; src: url('../fonts/barlow-500-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: block; src: url('../fonts/barlow-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: block; src: url('../fonts/barlow-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: block; src: url('../fonts/barlow-600-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: block; src: url('../fonts/barlow-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: block; src: url('../fonts/barlow-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: block; src: url('../fonts/barlow-700-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: block; src: url('../fonts/barlow-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 800; font-display: block; src: url('../fonts/barlow-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 800; font-display: block; src: url('../fonts/barlow-800-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 800; font-display: block; src: url('../fonts/barlow-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+:root {
+    --ui-surface: rgba(10, 12, 18, 0.75);
+    --ui-surface-hover: rgba(255, 255, 255, 0.05);
+    --ui-border: rgba(255, 255, 255, 0.08);
+    --ui-border-hover: rgba(255, 255, 255, 0.12);
+    --ui-text: rgba(255, 255, 255, 0.93);
+    --ui-text-mid: rgba(255, 255, 255, 0.5);
+    --ui-text-dim: rgba(255, 255, 255, 0.25);
+    --ui-accent: #60a5fa;
+    --ui-accent-glow: rgba(96, 165, 250, 0.2);
+    --ui-success: #4ade80;
+    --ui-error: #f87171;
+    --ui-warning: #fbbf24;
+    --ui-info: #60a5fa;
+    --ui-font: 'Barlow', 'Segoe UI', sans-serif;
+    --ui-mono: var(--ui-font);   /* no separate mono face; rules that use it add tabular-nums */
+    --ui-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --ui-ease-bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
+    --ui-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --ui-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --ui-blur: 20px;
+
+    --ui-accent-subtle: rgba(96, 165, 250, 0.07);
+    --ui-accent-light: rgba(96, 165, 250, 0.12);
+    --ui-accent-medium: rgba(96, 165, 250, 0.3);
+    --ui-success-subtle: rgba(74, 222, 128, 0.08);
+    --ui-success-light: rgba(74, 222, 128, 0.12);
+    --ui-error-subtle: rgba(248, 113, 113, 0.08);
+    --ui-error-light: rgba(248, 113, 113, 0.12);
+    --ui-surface-subtle: rgba(255, 255, 255, 0.02);
+    --ui-surface-light: rgba(255, 255, 255, 0.03);
+    --ui-surface-medium: rgba(255, 255, 255, 0.04);
+
+    /* Set to window height / 1440 by html/js/chat.js; 1 until it runs. */
+    --ui-scale: 1;
+}
