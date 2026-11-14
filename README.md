@@ -13,5 +13,5 @@ capsule, and messages appear in whip's look. F6 shows or hides the messages.
   `chat:addSuggestion`, `chatMessage` ...), so a resource that sends chat messages by event needs no change. One that
   calls `exports.chat:...` (whip_chat has the same `addMessage` and `registerMessageHook`), or whose manifest says
   `dependency 'chat'`, needs `chat` changed to `whip_chat` there.
-- **Commands:** `/say` (a server notice: the console, or an admin in developer mode), `/resetchat` (a player whose
+- **Commands:** `/clearchat` (empties your own chat; nobody else's changes), `/say` (a server notice: the console, or an admin in developer mode), `/resetchat` (a player whose
   keyboard seems stuck to the chat gets it back).
