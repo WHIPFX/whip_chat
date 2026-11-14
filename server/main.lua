@@ -408,7 +408,12 @@ end)
 RegisterCommand('global', function(source, _, rawCommand)
     if source ~= 0 and not fallbackAllowed(source) then return end
     if source ~= 0 and Whip.call('IsPlayerLoaded', source) ~= true then
-        Whip.call('NotifyPlayer', source, 'Pick a character first: /global goes out under their name', 'error')
+        -- With whip_core stopped there is no character to ask about, and no toast: said in chat instead.
+        if GetResourceState('whip_core') ~= 'started' then
+            TriggerClientEvent('chat:addMessage', source, { args = { '/global needs whip_core, which is not running' } })
+        else
+            Whip.call('NotifyPlayer', source, 'Pick a character first: /global goes out under their name', 'error')
+        end
         return
     end
     local raw = tostring(rawCommand or ''):sub(1, MAX_MESSAGE_LEN + 64)
