@@ -10,6 +10,7 @@ whip_updates 'WHIPFX/whip_chat'   -- whip_core checks this repository's releases
 
 -- The inbound message event is a whip_core SecureEvent.
 dependency 'whip_core'
+whip_requires '1.0'   -- the whip_core it is built for: the setup report flags an older one
 
 -- Whip.register re-declares the events after a whip_core restart; Whip.core doesn't error while it's down.
 shared_script '@whip_core/lib/satellite.lua'
