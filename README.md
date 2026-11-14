@@ -40,7 +40,7 @@ running, every message shows twice and typing can get stuck.
 | **T** | Open chat. Start with `/` for a command; **Tab** and the arrow keys pick a suggestion. |
 | **Page Up** / **Page Down** | Scroll the messages while typing |
 | **F6** | Switch between messages that fade away, stay on screen, or stay hidden |
-| `/global <message>` | Send a message to every player on the server |
+| `/global <message>` | Send a message to every player on the server, under your character's name. It needs a character: it doesn't work from the character screen. |
 | `/clearchat` | Clear your own chat. Nobody else's changes. |
 | `/resetchat` | Get the keyboard back if chat seems stuck |
 

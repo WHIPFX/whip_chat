@@ -403,8 +403,14 @@ end)
 
 --- /global <message>: to every player. Same rate limit and cleaning as typed chat. The line is cut
 --- before any pattern runs on it (a command line can be ~64 KB).
+--- Only with a character loaded: at the character screen the message would go out under the account's name, which a
+--- player sets to anything they like (another character's name, "Admin"), and reach everyone.
 RegisterCommand('global', function(source, _, rawCommand)
     if source ~= 0 and not fallbackAllowed(source) then return end
+    if source ~= 0 and Whip.call('IsPlayerLoaded', source) ~= true then
+        Whip.call('NotifyPlayer', source, 'Pick a character first: /global goes out under their name', 'error')
+        return
+    end
     local raw = tostring(rawCommand or ''):sub(1, MAX_MESSAGE_LEN + 64)
     local text = raw:match('^%S+%s+(.*%S)')
     text = text and cleanLine(text)
