@@ -295,7 +295,7 @@ local function RegisterWithWhip()
             { 'message', 'string', MAX_MESSAGE_LEN },
             { 'mode',    'string', 32, '' },
         },
-    }, function(source, player, message, mode)
+    }, function(source, _, message, mode)
         if mode == '' then mode = nil end
         routeMessage(source, message, mode, false)
     end)
