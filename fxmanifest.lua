@@ -6,6 +6,7 @@ name 'whip_chat'
 author 'Whippy'
 description 'whip-native chat. Drop-in replacement for the stock cfx `chat` resource.'
 version '1.1.0'
+whip_updates 'WHIPFX/whip_chat'   -- whip_core checks this repository's releases for a newer version
 
 -- The inbound message event is a whip_core SecureEvent.
 dependency 'whip_core'
