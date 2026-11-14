@@ -4,7 +4,7 @@ whip's chat, in place of FiveM's stock `chat` resource. Players press T to type;
 capsule, and messages appear in whip's look. F6 shows or hides the messages.
 
 - **Needs:** whip_core.
-- **Install:** it comes in the `[whip]` folder, and `ensure [whip]` starts it. Nothing to add to server.cfg, no SQL.
+- **Install:** WHIP's txAdmin recipe installs it and adds `ensure whip_chat` to server.cfg. Nothing else to add, no SQL.
 - **Take out stock chat:** remove `ensure chat` from server.cfg. If chat still starts, put `stop chat` after
   `ensure whip_chat`. Both running gives two chat boxes on one key: every message shows twice, and typing can get
   stuck. whip_chat says so in the server console (and in F8) when it finds another chat, stock `chat` or one whose
