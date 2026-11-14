@@ -5,7 +5,7 @@ lua54 'yes'
 name 'whip_chat'
 author 'Whippy'
 description 'whip-native chat. Drop-in replacement for the stock cfx `chat` resource.'
-version '1.0.0'
+version '1.1.0'
 
 -- The inbound message event is a whip_core SecureEvent.
 dependency 'whip_core'
