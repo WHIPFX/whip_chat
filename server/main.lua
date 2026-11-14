@@ -33,8 +33,8 @@ local refreshCommandsFor
 local function displayName(source)
     if source == 0 then return 'console' end
 
-    -- Whip.call returns false when whip_core is down, so chat still works.
-    local name = Whip.call('GetPlayerFullName', source)
+    -- Whip.core returns false when whip_core is down, so chat still works.
+    local name = Whip.core:GetPlayerFullName(source)
     if type(name) == 'string' and name ~= '' then
         return name
     end
@@ -61,7 +61,7 @@ local function nearbyTarget(source)
     if source == 0 then return -1 end
     local ped = GetPlayerPed(source)
     if not ped or ped == 0 then return { source } end
-    local list = Whip.call('GetPlayersInRange', GetEntityCoords(ped))
+    local list = Whip.core:GetPlayersInRange(GetEntityCoords(ped))
     if type(list) ~= 'table' then return -1 end
     -- Same bucket: a player at the character screen sits in a bucket of their own.
     local bucket = GetPlayerRoutingBucket(source)
@@ -407,12 +407,12 @@ end)
 --- player sets to anything they like (another character's name, "Admin"), and reach everyone.
 RegisterCommand('global', function(source, _, rawCommand)
     if source ~= 0 and not fallbackAllowed(source) then return end
-    if source ~= 0 and Whip.call('IsPlayerLoaded', source) ~= true then
+    if source ~= 0 and Whip.core:IsPlayerLoaded(source) ~= true then
         -- With whip_core stopped there is no character to ask about, and no toast: said in chat instead.
         if GetResourceState('whip_core') ~= 'started' then
             TriggerClientEvent('chat:addMessage', source, { args = { '/global needs whip_core, which is not running' } })
         else
-            Whip.call('NotifyPlayer', source, 'Pick a character first: /global goes out under their name', 'error')
+            Whip.core:NotifyPlayer(source, 'Pick a character first: /global goes out under their name', 'error')
         end
         return
     end
