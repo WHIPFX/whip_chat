@@ -350,7 +350,7 @@ AddEventHandler('whip_core:ui:stateChanged', function(e)
 end)
 
 Whip.register(function()
-    -- IsAnyScreenOpen, not IsAnyUIOpen: a progress bar should not hide chat.
+    -- IsAnyScreenOpen, which a progress bar alone does not count for: one should not hide chat.
     uiOpen = Whip.core:IsAnyScreenOpen() == true
 end)
 
