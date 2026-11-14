@@ -291,7 +291,7 @@ RegisterCommand('toggleChat', function(_, args)
 
     -- Announce the change: the mode is saved, and a stray F6 is otherwise silent. A notification, so
     -- it shows in the hidden mode too.
-    Whip.call('Notify', ('Chat: %s (F6 changes it)'):format(HIDE_NAMES[want] or tostring(want)), 'info', 5000)
+    Whip.core:Notify(('Chat: %s (F6 changes it)'):format(HIDE_NAMES[want] or tostring(want)), 'info', 5000)
 end, false)
 
 -- The same three states on the pause menu's Server Settings page. The value stays in this resource's KVP.
@@ -327,7 +327,7 @@ RegisterCommand('resetchat', function()
 
     -- whip_core holds the keyboard, so ask it to close first; then release locally anyway in case
     -- whip_core is what broke.
-    Whip.call('CloseComposer')
+    Whip.core:CloseComposer()
     SetNuiFocus(false, false)
     SendNUIMessage({ type = 'ON_SET_ACTIVE', active = false })
 
@@ -351,7 +351,7 @@ end)
 
 Whip.register(function()
     -- IsAnyScreenOpen, not IsAnyUIOpen: a progress bar should not hide chat.
-    uiOpen = Whip.call('IsAnyScreenOpen') == true
+    uiOpen = Whip.core:IsAnyScreenOpen() == true
 end)
 
 -- ============================================
@@ -368,7 +368,7 @@ local function openChat(onPad)
     -- The flag can outlive the composer (a whip_core restart or /resetcomposer ends it without
     -- onCancel), so confirm with whip_core before refusing to open.
     if _composerOpen then
-        if Whip.call('IsComposerOpen') == true then return end
+        if Whip.core:IsComposerOpen() == true then return end
         _composerOpen = false
         SendNUIMessage({ type = 'ON_SET_ACTIVE', active = false })
     end
@@ -376,12 +376,12 @@ local function openChat(onPad)
     -- Not over a whip screen, the pause menu or a fade. The wheel's Chat asks afresh: the wheel
     -- itself was a screen a moment ago and the push may not have landed.
     local screenUp = uiOpen
-    if onPad then screenUp = Whip.call('IsAnyScreenOpen') == true end
+    if onPad then screenUp = Whip.core:IsAnyScreenOpen() == true end
     if screenUp or IsPauseMenuActive() or IsScreenFadedOut() then return end
 
-    -- Whip.call returns false if whip_core is down, where a direct export call would raise and
+    -- Whip.core returns false if whip_core is down, where a direct export call would raise and
     -- break the key binding.
-    local opened = Whip.call('OpenComposer', {
+    local opened = Whip.core:OpenComposer({
         placeholder = 'Say something, or / for a command',
         maxLength   = 256,
 
@@ -423,7 +423,7 @@ RegisterCommand('-whip_chat', function()
 
     -- Keyboard focus only, never the cursor: the player can keep looking around while typing.
     -- Suggestions are picked with Tab and the arrow keys.
-    Whip.call('FocusComposer')
+    Whip.core:FocusComposer()
 end, false)
 
 RegisterKeyMapping('+whip_chat', 'Open Chat', 'keyboard', 'T')
