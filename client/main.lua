@@ -238,6 +238,7 @@ RegisterNUICallback('loaded', function(_, cb)
     addSuggestion('/toggleChat', 'Cycle chat visibility', {
         { name = 'state', help = 'whenactive | visible | hidden' },
     })
+    addSuggestion('/clearchat', 'Clear your chat messages (only on your screen)')
     -- A server command, offered here because the server's list is off (server/main.lua, SUGGESTIONS).
     addSuggestion('/global', 'Message every player on the server', {
         { name = 'message', help = 'what to say' },
@@ -312,6 +313,12 @@ Whip.playerSetting({
 
 -- F6, not stock's L: whip_core binds L to vehicle lock.
 RegisterKeyMapping('toggleChat', 'Toggle chat visibility', 'keyboard', 'F6')
+
+--- Empty this player's own message log. Nobody else's chat changes, and messages that arrive afterwards show as
+--- usual. The same as the stock `chat:clear` event, as a command.
+RegisterCommand('clearchat', function()
+    SendNUIMessage({ type = 'ON_CLEAR' })
+end, false)
 
 --- Failsafe for "chat has my keyboard": hands the controls back without depending on chat state.
 --- Usable from the F8 console.
