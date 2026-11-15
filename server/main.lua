@@ -362,8 +362,8 @@ refreshCommandsFor = function(player)
 
     local out = {}
     for _, command in ipairs(GetRegisteredCommands()) do
-        -- Key-mapping commands (`+name` / `-name`) aren't typed; the client drops them anyway.
-        local allowed = not command.name:find('^[+-]')
+        -- Key-mapping commands (`+name` / `-name`, `~!` alternates) aren't typed; the client drops them anyway.
+        local allowed = not command.name:find('^[+-]') and not command.name:find('^~!')
             and IsPlayerAceAllowed(player, ('command.%s'):format(command.name))
         -- whip_core's admin commands are open to FiveM's ACE and check their own permission, so ask
         -- whip_core which ACE each one needs.

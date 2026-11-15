@@ -73,10 +73,11 @@ exports('addMessage', addMessage)
 
 --- Record one suggestion. An existing name is replaced in place: the full command set is re-offered on
 --- every resource start/stop, so appending would duplicate entries and reorder the list.
---- Key-mapping commands (`+name` / `-name`, run on key press and release) are never offered.
+--- Key-mapping commands (`+name` / `-name`, run on key press and release, and `~!` alternate
+--- bindings) are never offered.
 local function recordSuggestion(name, help, params)
     if type(name) ~= 'string' or name == '' then return end
-    if name:find('^/?[+-]') then return end
+    if name:find('^/?[+-]') or name:find('^/?~!') then return end
 
     local entry = { name = name, help = help or '', params = params or nil }
     local at = _suggestionIndex[name]
