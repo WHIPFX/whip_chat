@@ -8,6 +8,10 @@ description 'whip-native chat. Drop-in replacement for the stock cfx `chat` reso
 version '1.1.0'
 whip_updates 'WHIPFX/whip_chat'   -- whip_core checks this repository's releases for a newer version
 
+-- It answers stock chat's events and exports, so it stands in for it: a resource with `dependency 'chat'` starts, and
+-- `exports.chat:addMessage(...)` reaches whip_chat, with no change to that resource.
+provide 'chat'
+
 -- The inbound message event is a whip_core SecureEvent.
 dependency 'whip_core'
 whip_requires '1.0'   -- the whip_core it is built for: the setup report flags an older one
