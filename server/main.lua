@@ -118,7 +118,7 @@ end
 -- ============================================
 
 --- addMessage(message) broadcasts; addMessage(target, message) sends to one player.
-exports('addMessage', function(target, message)
+ExportAsStockChat('addMessage', function(target, message)
     if message == nil then
         message = target
         target  = -1
@@ -136,7 +136,7 @@ end)
 ---@param hook function
 ---@param id string|nil
 ---@return boolean ok, string|nil why
-exports('registerMessageHook', function(hook, id)
+ExportAsStockChat('registerMessageHook', function(hook, id)
     -- `hook ~= nil`, not a type check: a function passed through an export is not type 'function'.
     -- Hooks are pcall'd when a message routes.
     if hook == nil then return false, 'registerMessageHook needs a function' end
@@ -152,7 +152,7 @@ end)
 --- registering its mode again replaces it.
 ---@param modeData table  { name, displayName, cb, seObject? }
 ---@return boolean ok, string|nil why
-exports('registerMode', function(modeData)
+ExportAsStockChat('registerMode', function(modeData)
     local resource = GetInvokingResource() or GetCurrentResourceName()   -- first, before anything else
     if type(modeData) ~= 'table' then return false, 'registerMode takes a table: { name, displayName, cb }' end
     if not modeData.name then return false, 'a chat mode needs a name' end

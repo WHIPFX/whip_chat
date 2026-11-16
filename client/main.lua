@@ -69,7 +69,7 @@ local function addMessage(message)
     SendNUIMessage({ type = 'ON_MESSAGE', message = message })
 end
 
-exports('addMessage', addMessage)
+ExportAsStockChat('addMessage', addMessage)
 
 --- Record one suggestion. An existing name is replaced in place: the full command set is re-offered on
 --- every resource start/stop, so appending would duplicate entries and reorder the list.
@@ -94,7 +94,7 @@ local function addSuggestion(name, help, params)
     recordSuggestion(name, help, params)
 end
 
-exports('addSuggestion', addSuggestion)
+ExportAsStockChat('addSuggestion', addSuggestion)
 
 --- Chat size relative to whip's other panels: 1 = same size, 1.2 = a fifth bigger. The page already
 --- scales to the resolution, so this is taste only.
