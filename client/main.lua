@@ -367,7 +367,8 @@ end)
 
 --- Open chat: the capsule's field for T, or whip's pad keyboard (`onPad`, the wheel's Chat below).
 ---@param onPad boolean
-local function openChat(onPad)
+---@param prefill string|nil Text the field starts with ('/' for the slash key)
+local function openChat(onPad, prefill)
     -- The flag can outlive the composer (a whip_core restart or /resetcomposer ends it without
     -- onCancel), so confirm with whip_core before refusing to open.
     if _composerOpen then
@@ -386,6 +387,7 @@ local function openChat(onPad)
     -- break the key binding.
     local opened = Whip.core:OpenComposer({
         placeholder = 'Say something, or / for a command',
+        prefill     = prefill,
         maxLength   = 256,
 
         -- A snapshot at open time is fresh enough.
@@ -419,17 +421,27 @@ local function openChat(onPad)
     SendNUIMessage({ type = 'ON_SET_ACTIVE', active = true })
 end
 
-RegisterCommand('+whip_chat', function() openChat(false) end, false)
-
-RegisterCommand('-whip_chat', function()
+local function onChatKeyUp()
     if not _composerOpen then return end
 
     -- Keyboard focus only, never the cursor: the player can keep looking around while typing.
     -- Suggestions are picked with Tab and the arrow keys.
     Whip.core:FocusComposer()
-end, false)
+end
 
-RegisterKeyMapping('+whip_chat', 'Open Chat', 'keyboard', 'T')
+-- One default key per mapping is all FiveM allows, so each key gets its own command pair. Each
+-- shows up as its own rebindable entry under Settings > Key Bindings > FiveM.
+local CHAT_KEYS = {
+    { cmd = 'whip_chat',       label = 'Open Chat',           key = 'T' },
+    -- Starts the line with '/', so the command suggestions show straight away.
+    { cmd = 'whip_chat_slash', label = 'Open Chat (Command)', key = 'SLASH', prefill = '/' },
+}
+
+for _, k in ipairs(CHAT_KEYS) do
+    RegisterCommand('+' .. k.cmd, function() openChat(false, k.prefill) end, false)
+    RegisterCommand('-' .. k.cmd, onChatKeyUp, false)
+    RegisterKeyMapping('+' .. k.cmd, k.label, 'keyboard', k.key)
+end
 
 -- Chat on the F1 wheel while a controller is in use (a pad has no T). Opens whip's pad keyboard;
 -- Done sends as Enter would. Offered while downed too. Re-added through Whip.register after a
