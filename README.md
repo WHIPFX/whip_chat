@@ -73,8 +73,9 @@ whip_chat answers stock chat's API:
 | Server event | `chatMessage`: cancel it to stop a message |
 
 A resource that triggers these events needs no change. whip_chat says `provide 'chat'` in its `fxmanifest.lua`, so one
-that has `dependency 'chat'` starts with it, and one that calls `exports.chat:addMessage(...)` (or another of the exports
-above) reaches whip_chat: those need no change either.
+that has `dependency 'chat'` starts with it. Stock chat's exports (`addMessage` and `addSuggestion` on the client;
+`addMessage`, `registerMessageHook` and `registerMode` on the server) also answer as `exports.chat:<name>(...)`
+(`shared/stock_exports.lua`: `provide` alone does not carry exports), so those calls need no change either.
 
 ## License
 
