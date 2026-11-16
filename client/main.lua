@@ -83,6 +83,9 @@ local function recordSuggestion(name, help, params)
     local at = _suggestionIndex[name]
 
     if at then
+        -- The server's list carries no help text; it must not blank an entry that has some (/global).
+        local old = _suggestionOrder[at]
+        if entry.help == '' and old and old.help ~= '' then return end
         _suggestionOrder[at] = entry
     else
         _suggestionOrder[#_suggestionOrder + 1] = entry

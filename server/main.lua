@@ -14,9 +14,13 @@ local RESOURCE = GetCurrentResourceName()
 
 local MAX_MESSAGE_LEN = 256   -- must match MAX_LENGTH in html/js/chat.js
 
--- Server-side command suggestions are off: the sweep (players × commands × ACE checks) ran on every
--- resource start. Client-side suggestions still reach the composer. Set true to send them again.
-local SUGGESTIONS = false
+-- Server-side command suggestions: each player gets the server's commands (filtered by their ACEs) once,
+-- when their chat loads. That is one list per join, which is cheap.
+local SUGGESTIONS = true
+
+-- The re-send to EVERY player on every resource start (players × commands × ACE checks) stays off:
+-- that sweep was the cost. A command from a resource started mid-session shows after a reconnect.
+local SUGGESTIONS_SWEEP = false
 
 local hooks   = {}   -- ['<resource>:<id>'] = { fn, resource } — see registerMessageHook
 local modes   = {}   -- [name] = modeData
@@ -382,7 +386,7 @@ end
 --- Re-send suggestions when resources start. Debounced: one sweep covers every start in the window.
 local suggestionsSweepArmed = false
 AddEventHandler('onServerResourceStart', function()
-    if not SUGGESTIONS or suggestionsSweepArmed then return end
+    if not SUGGESTIONS_SWEEP or suggestionsSweepArmed then return end
     suggestionsSweepArmed = true
     CreateThread(function()
         Wait(1000)
