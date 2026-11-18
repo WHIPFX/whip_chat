@@ -5,7 +5,7 @@ lua54 'yes'
 name 'whip_chat'
 author 'Whippy'
 description 'whip-native chat. Drop-in replacement for the stock cfx `chat` resource.'
-version '1.1.0'
+version '1.2.0'
 whip_updates 'WHIPFX/whip_chat'   -- whip_core checks this repository's releases for a newer version
 
 -- It answers stock chat's events and exports, so it stands in for it: a resource with `dependency 'chat'` starts, and
@@ -14,7 +14,7 @@ provide 'chat'
 
 -- The inbound message event is a whip_core SecureEvent.
 dependency 'whip_core'
-whip_requires '1.0'   -- the whip_core it is built for: the setup report flags an older one
+whip_requires '1.3'   -- the whip_core it is built for: the setup report flags an older one
 
 -- Whip.register re-declares the events after a whip_core restart; Whip.core doesn't error while it's down.
 shared_scripts {
